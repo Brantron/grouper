@@ -1,0 +1,19 @@
+{
+  "name": "grouper",
+  "version": "1.0.0",
+  "description": "Groups JavaScript tests for faster parralell runs",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brantron/grouper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Brantron/grouper/issues"
+  },
+  "homepage": "https://github.com/Brantron/grouper#readme"
+}
