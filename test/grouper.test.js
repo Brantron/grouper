@@ -1,9 +1,9 @@
 import Grouper from "../src/index";
 import { tests, testResult } from "./stubs";
 
-const isGreaterOrEqual = (value, index, arr) => {
+const isLesserThanNext = (value, index, arr) => {
   const next = arr[index + 1];
-  return !next || value >= next;
+  return next && value < next;
 };
 
 describe("Grouper", () => {
@@ -37,26 +37,55 @@ describe("Grouper", () => {
 
     it("returns tests in the correct order", () => {
       specs = Object.values(reporter.tests);
-      expect(specs.some(isGreaterOrEqual)).toBe(true);
+      expect(specs.some(isLesserThanNext)).toBe(false);
     });
   });
 
   describe("onTestResult", () => {
-    it("pushes all objects", () => {
+    let firstSpec;
+    beforeEach(() => {
       reporter.onTestResult({}, testResult);
+      firstSpec = reporter.tests[0];
+    });
+
+    it("pushes all objects", () => {
       expect(reporter.tests.length).toBe(testResult.testResults.length);
     });
 
     it("pushes an object with the correct duration", () => {
       const firstResult = testResult.testResults[0];
-      reporter.onTestResult({}, testResult);
-      expect(reporter.tests[0].duration).toBe(firstResult.duration);
+      expect(firstSpec.duration).toBe(firstResult.duration);
     });
 
     it("pushes an object with the correct testFilePath", () => {
       const { testFilePath } = testResult;
-      reporter.onTestResult({}, testResult);
-      expect(reporter.tests[0].filePath).toBe(testFilePath);
+      expect(firstSpec.filePath).toBe(testFilePath);
+    });
+  });
+
+  describe("specsToFilenameDurationArray", () => {
+    let result;
+    const stub = {
+      "filename.js": 123,
+      "other.js": 321,
+      "file.js": 555,
+      "stuff.js": 444
+    };
+
+    beforeEach(() => {
+      result = reporter.specsToFilenameDurationArray(stub);
+    });
+
+    it("has all specs", () => {
+      expect(result.length).toBe(Object.keys(stub).length);
+    });
+
+    it("pushes filename to array", () => {
+      expect(result[0][0]).toBe(Object.keys(stub)[0]);
+    });
+
+    it("pushes duration to array", () => {
+      expect(result[0][1]).toBe(Object.values(stub)[0]);
     });
   });
 });

@@ -42,11 +42,11 @@ export default class Grouper {
   // returns an array like [['filename.js', 123] ['other.js', 321]]
   // this is for faster sorting
   specsToFilenameDurationArray(specs) {
-    const sortable = [];
-    for (var time in specs) {
-      sortable.push([time, specs[time]]);
-    }
-    return sortable;
+    const entries = Object.entries(specs);
+    return entries.reduce((acc, [filename, duration]) => {
+      acc.push([filename, duration]);
+      return acc;
+    }, []);
   }
 
   // given an array like [['filename.js', 123] ['other.js', 321]]
