@@ -1,5 +1,4 @@
-const rootPathRegex = new RegExp(`^${process.cwd()}`);
-const truncateFilePath = path => path.replace(rootPathRegex, ".");
+import { rootPathRegex, truncateFilePath, sendData } from "./utils";
 
 export default class Grouper {
   constructor(globalConfig, options) {
@@ -8,10 +7,10 @@ export default class Grouper {
     this.tests = [];
   }
 
-  onRunComplete() {
+  async onRunComplete() {
     const results = this.reduceTestsToFileAndDurationObject();
     this.tests = this.specsToFilenameDurationArray(results);
-    console.log(this.tests);
+    await sendData(this.tests);
   }
 
   onTestResult(_, { testFilePath, testResults }) {

@@ -25,9 +25,9 @@ describe("Grouper", () => {
     const COUNT = 100;
     let specs;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       Object.defineProperty(reporter, "tests", { value: tests(COUNT) });
-      reporter.onRunComplete();
+      await reporter.onRunComplete();
     });
 
     it("has all specs", () => {
