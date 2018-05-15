@@ -7,15 +7,14 @@ const truncateFilePath = path => path.replace(rootPathRegex, ".");
 
 const GROUPER_PATH = "https://grouper-app.herokuapp.com/test_runs";
 
-const project = execSync(
-  "basename -s .git `git config --get remote.origin.url`"
+const project = execSync("git config --get remote.origin.url")
+  .toString()
+  .trim();
+const branch = execSync(
+  "git ls-remote --heads origin | grep $(git rev-parse HEAD) | cut -d / -f 3"
 )
   .toString()
   .trim();
-const branch = execSync("git branch | xargs")
-  .toString()
-  .trim()
-  .substring(2);
 
 const createData = test_files_attributes => ({
   test_run: {
