@@ -10,8 +10,7 @@ export default class Grouper {
 
   onRunComplete() {
     const results = this.reduceTestsToFileAndDurationObject();
-    const sortable = this.specsToFilenameDurationArray(results);
-    this.tests = this.sortedObjectFromArray(sortable);
+    this.tests = this.specsToFilenameDurationArray(results);
     console.log(this.tests);
   }
 
@@ -43,24 +42,9 @@ export default class Grouper {
   // this is for faster sorting
   specsToFilenameDurationArray(specs) {
     const entries = Object.entries(specs);
-    return entries.reduce((acc, [filename, duration]) => {
-      acc.push([filename, duration]);
+    return entries.reduce((acc, [path, time]) => {
+      acc.push({ path, time });
       return acc;
     }, []);
-  }
-
-  // given an array like [['filename.js', 123] ['other.js', 321]]
-  // returns an object like {
-  //   'other.js': 321,
-  //   'filename.js': 123,
-  // }
-
-  sortedObjectFromArray(arr) {
-    arr.sort((a, b) => b[1] - a[1]);
-
-    return arr.reduce((acc, test) => {
-      acc[test[0]] = test[1];
-      return acc;
-    }, {});
   }
 }

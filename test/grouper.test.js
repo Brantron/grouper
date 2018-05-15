@@ -81,11 +81,11 @@ describe("Grouper", () => {
     });
 
     it("pushes filename to array", () => {
-      expect(result[0][0]).toBe(Object.keys(stub)[0]);
+      expect(result[0].path).toBe(Object.keys(stub)[0]);
     });
 
     it("pushes duration to array", () => {
-      expect(result[0][1]).toBe(Object.values(stub)[0]);
+      expect(result[0].time).toBe(Object.values(stub)[0]);
     });
   });
 });
