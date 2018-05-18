@@ -1,6 +1,7 @@
-import { rootPathRegex, truncateFilePath, sendData } from "./utils";
+const utils = require("./utils");
+const { rootPathRegex, truncateFilePath, sendData } = utils;
 
-export default class Grouper {
+class Grouper {
   constructor(globalConfig, options) {
     this._globalConfig = globalConfig;
     this._options = options;
@@ -47,3 +48,5 @@ export default class Grouper {
     }, []);
   }
 }
+
+module.exports = Grouper;

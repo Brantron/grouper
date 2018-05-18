@@ -1,5 +1,5 @@
-import axios from "axios";
-import { execSync } from "child_process";
+const axios = require("axios");
+const execSync = require("child_process").execSync;
 
 const rootPathRegex = new RegExp(`^${process.cwd()}`);
 
@@ -31,5 +31,4 @@ async function sendData(data) {
     .then(response => console.log(response))
     .catch(e => console.log(e));
 }
-
-export { rootPathRegex, truncateFilePath, sendData };
+module.exports = { rootPathRegex, truncateFilePath, sendData };
