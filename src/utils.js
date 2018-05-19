@@ -36,4 +36,11 @@ async function sendData(data) {
     .then(response => console.log(response))
     .catch(e => console.log(e));
 }
-module.exports = { rootPathRegex, truncateFilePath, sendData };
+module.exports = {
+  rootPathRegex,
+  truncateFilePath,
+  sendData,
+  sha,
+  project,
+  branch
+};
