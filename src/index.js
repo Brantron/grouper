@@ -1,5 +1,5 @@
 const utils = require("./utils");
-const { rootPathRegex, truncateFilePath, sendData } = utils;
+const { truncateFilePath, sendData } = utils;
 
 class Grouper {
   constructor(globalConfig, options) {
