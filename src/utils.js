@@ -7,17 +7,18 @@ const truncateFilePath = path => path.replace(rootPathRegex, ".");
 
 const GROUPER_PATH = "https://grouper-app.herokuapp.com/test_runs";
 
-const bashCommandToParam = (string) => execSync(string)
-  .toString()
-  .trim();
+const bashCommandToParam = string =>
+  execSync(string)
+    .toString()
+    .trim();
 
-const sha = bashCommandToParam("git rev-parse HEAD")
+const sha = bashCommandToParam("git rev-parse HEAD");
 
-const project = bashCommandToParam("git config --get remote.origin.url"):
+const project = bashCommandToParam("git config --get remote.origin.url");
 
 const branch = bashCommandToParam(
   "git ls-remote --heads origin | grep $(git rev-parse HEAD) | cut -d / -f 3"
-)
+);
 
 const createData = test_files_attributes => ({
   test_run: {
